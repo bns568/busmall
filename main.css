@@ -2,7 +2,25 @@
     text-align: center;
 }
 
-.random-gifs {
-    width: 200px;
+img {
+    width: calc(100% / 3.4);
     height: auto;
+}
+
+.random-gifs {
+    height: 200px;
+}
+
+#random-gif1 {
+    float: left;
+}
+
+#random-gif2 {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 70px; 
+}
+
+#random-gif3 {
+    float: right;
 }

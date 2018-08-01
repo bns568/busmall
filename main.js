@@ -58,6 +58,12 @@ let randomGif2 = function() {
     //retrieve random gif from array
     gifIndex2 = gifArray[randomIndex];
 
+    while (gifIndex2 === gifIndex1) {
+        randomIndex = Math.floor(Math.random() * gifArray.length);
+
+        gifIndex2 = gifArray[randomIndex];
+    }
+
     //assign src of gif tag to the random gif
     elGif2.src = gifIndex2.filePath;
 }
@@ -67,6 +73,12 @@ let randomGif3 = function() {
 
     //retrieve random gif from array
     gifIndex3 = gifArray[randomIndex];
+
+    while ((gifIndex3 === gifIndex1) || (gifIndex3 === gifIndex2)) {
+        randomIndex = Math.floor(Math.random() * gifArray.length);
+
+        gifIndex3 = gifArray[randomIndex];
+    }
 
     //assign src of gif tag to the random gif
     elGif3.src = gifIndex3.filePath;
@@ -102,4 +114,6 @@ elGif3.addEventListener('click', gifClick3);
 randomGif1();
 randomGif2();
 randomGif3();
+
+
 
