@@ -6,12 +6,23 @@
     <title>Best GIFs of All Time</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js'></script>
 </head>
 <body>
     <h1 class='title'>Vote Now For the Best GIF of All Time</h1></br>
-    <img src='' id='random-gif1' class='random-gifs'/>
-    <img src='' id='random-gif2' class='random-gifs'/>
-    <img src='' id='random-gif3' class='random-gifs'/>
+    <div class='media'>
+        <div class='container'>
+            <div class='row'>
+                <img src='' id='random-gif1' class='col'/>
+                <img src='' id='random-gif2' class='col'/>
+                <img src='' id='random-gif3' class='col'/>
+            </div>
+        </div>
+    </div></br></br>
+    <canvas id='chart'>
+
+    </canvas>
 </body>
     <script src="main.js"></script>
 </html>
