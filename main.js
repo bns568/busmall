@@ -1,4 +1,10 @@
-let clicks = 0; 
+let clicks;
+if (localStorage.clicksJSON){
+    clicks = JSON.parse(localStorage.getItem("clicksJSON"));
+} else {
+    clicks = 0;
+}
+
 //declaring empty image array that will store gifs
 let gifArray = [];
 //find gif tags in html 
@@ -9,6 +15,11 @@ let elGif3 = document.getElementById('random-gif3')
 let gifIndex1;
 let gifIndex2;
 let gifIndex3;
+
+//get canvas element by ID
+let elCanvas = document.getElementById('chart');
+//set canvas element context as 2d
+let ctx = elCanvas.getContext('2d');
 
 // new Constructor function for creating gif objects
 let Gif = function(name, filePath, clicked) {
@@ -40,11 +51,28 @@ let gif18 = new Gif('Llama Dance', 'img/18.gif', 0);
 let gif19 = new Gif('Penguin Punch', 'img/19.gif', 0);
 let gif20 = new Gif('Stop Sign', 'img/20.gif', 0);
 
-//pushing gif objects to array
-gifArray.push(gif1, gif2, gif3, gif4, gif5, gif6, gif7, gif8, gif9, gif10, gif11, gif12, gif13, gif14, gif15, gif16, gif17, gif18, gif19, gif20);
+if(localStorage.gifArr) {
+    gifArray = JSON.parse(localStorage.getItem("gifArr"))
+    console.log(gifArray)
+} else {
+    //pushing gif objects to array
+    gifArray.push(gif1, gif2, gif3, gif4, gif5, gif6, gif7, gif8, gif9, gif10, gif11, gif12, gif13, gif14, gif15, gif16, gif17, gif18, gif19, gif20);
+}
+
+function populateChart(prop){
+    let labels = [];
+    
+    for (let i = 0; i < gifArray.length; i++) {
+        labels.push(gifArray[i][prop])
+    }
+
+    return labels;
+}
 
 //select random gif
 let randomGif1 = function() {
+    //retreiving our image objects array from locatl storage by passing the local storage key as an argument and parsing the value back into an array of objects which we can then mutate
+
     let randomIndex = Math.floor(Math.random() * gifArray.length);
 
     //retrieve random gif from array
@@ -59,6 +87,8 @@ let randomGif1 = function() {
 }
 
 let randomGif2 = function() {
+    //retreiving our image objects array from locatl storage by passing the local storage key as an argument and parsing the value back into an array of objects which we can then mutate
+
     let randomIndex = Math.floor(Math.random() * gifArray.length);
 
     //retrieve random gif from array
@@ -79,6 +109,8 @@ let randomGif2 = function() {
 }
 
 let randomGif3 = function() {
+    //retreiving our image objects array from locatl storage by passing the local storage key as an argument and parsing the value back into an array of objects which we can then mutate
+
     let randomIndex = Math.floor(Math.random() * gifArray.length);
 
     //retrieve random gif from array
@@ -106,6 +138,10 @@ let gifClick1 = function(e) {
     gifIndex1.clicked += 1;
     console.log(gifIndex1.clicked);
 
+    localStorage.setItem("gifArr", JSON.stringify(gifArray));
+    localStorage.setItem("clicksJSON", JSON.stringify(clicks)); 
+    console.log(localStorage);
+
     randomGif1(); 
     randomGif2();
     randomGif3(); 
@@ -119,6 +155,10 @@ let gifClick2 = function(e) {
     //accessing clicked property on random image and incrementing by 1 each time clicked
     gifIndex2.clicked += 1;
     console.log(gifIndex2.clicked);
+
+    localStorage.setItem("gifArr", JSON.stringify(gifArray));
+    localStorage.setItem("clicksJSON", JSON.stringify(clicks));
+    console.log(localStorage);
 
     randomGif1(); 
     randomGif2();
@@ -134,6 +174,10 @@ let gifClick3 = function(e) {
     gifIndex3.clicked += 1;
     console.log(gifIndex3.clicked);
 
+    localStorage.setItem("gifArr", JSON.stringify(gifArray));
+    localStorage.setItem("clicksJSON", JSON.stringify(clicks));
+    console.log(localStorage);
+
     randomGif1(); 
     randomGif2();
     randomGif3();
@@ -148,7 +192,7 @@ let createChart = function() {
             //giving data property to chart
             data: {
                 //setting the lables as image names
-                labels: [gif1.name, gif2.name, gif3.name, gif4.name, gif5.name, gif6.name, gif7.name, gif8.name, gif9.name, gif10.name, gif11.name, gif12.name, gif13.name, gif14.name, gif15.name, gif16.name, gif17.name, gif18.name, gif19.name, gif20.name],
+                labels: populateChart('name'),
                 //passing in array of datasets to populate individual bars, each dataset will create a new bar for our chart
                 datasets: [
                 {
@@ -156,7 +200,7 @@ let createChart = function() {
                     backgroundColor: 'rgb(85, 80, 229)',
                     borderColor: 'rgb(85, 80, 229)',
                     //passing in clicked property as data to calculate bars for each label
-                    data: [gif1.shown, gif2.shown, gif3.shown, gif4.shown, gif5.shown, gif6.shown, gif7.shown, gif8.shown, gif9.shown, gif10.shown, gif11.shown, gif12.shown, gif13.shown, gif14.shown, gif15.shown, gif16.shown, gif17.shown, gif18.shown, gif19.shown, gif20.shown]
+                    data: populateChart('shown'),
                 },
                 {
                     //setting the label of the key to Clicked and giving bars styles
@@ -164,7 +208,7 @@ let createChart = function() {
                     backgroundColor: 'rgb(255, 99, 130)',
                     borderColor: 'rgb(255, 99, 130)',
                     //passing in clicked property as data to calculate bars for each label
-                    data: [gif1.clicked, gif2.clicked, gif3.clicked, gif4.clicked, gif5.clicked, gif6.clicked, gif7.clicked, gif8.clicked, gif9.clicked, gif10.clicked, gif11.clicked, gif12.clicked, gif13.clicked, gif14.clicked, gif15.clicked, gif16.clicked, gif17.clicked, gif18.clicked, gif19.clicked, gif20.clicked]
+                    data: populateChart('clicked'),
                 }
                 ],
                 options: {
@@ -186,12 +230,6 @@ let createChart = function() {
         })
     }
 };
-
-
-//get canvas element by ID
-let elCanvas = document.getElementById('chart');
-//set canvas element context as 2d
-let ctx = elCanvas.getContext('2d');
 
 //attaching event listener to image tag
 elGif1.addEventListener('click', gifClick1);
