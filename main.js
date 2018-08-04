@@ -205,8 +205,8 @@ let createChart = function() {
                 {
                     //setting the label of the key to Clicked and giving bars styles
                     label: 'Clicked',
-                    backgroundColor: 'rgb(255, 99, 130)',
-                    borderColor: 'rgb(255, 99, 130)',
+                    backgroundColor: 'rgb(233, 255, 0)',
+                    borderColor: 'rgb(233, 255, 0)',
                     //passing in clicked property as data to calculate bars for each label
                     data: populateChart('clicked'),
                 }
